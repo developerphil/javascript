@@ -1,0 +1,26 @@
+<html ng-app="exampleApp">
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+		<script type="text/javascript">
+			var exampleAppModule = angular.module('exampleApp', []);
+
+			exampleAppModule.controller('ExampleController',
+			    function($scope) {
+			    	var someText = {};
+					someText.message = 'Name List';
+					$scope.someText = someText;
+					$scope.items = [{name:"name1"},{name:"name2"},{name:"name3"}];
+				}
+			);
+
+  		</script>
+	</head>
+	<body>
+		<div ng-controller="ExampleController">
+			{{someText.message}}
+			<ul ng-repeat="item in items">
+				<li>{{item.name}}</li>
+			</ul>
+		</div>
+	</body>
+</html>

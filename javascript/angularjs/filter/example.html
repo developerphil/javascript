@@ -1,0 +1,36 @@
+<html ng-app="ExampleModule">
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+		<script type="text/javascript">
+			
+			var exampleModule = angular.module('ExampleModule', []);
+			
+			exampleModule.filter('titleCase', function() {
+				  var titleCaseFilter = function(input) {
+					var words = input.split(' ');
+					for (var i = 0; i < words.length; i++) {
+					  words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+					}
+					return words.join(' ');
+				  };
+				  return titleCaseFilter;
+			});
+			
+			exampleModule.controller('ExampleController',
+			    function($scope) {
+			    	var someText = {};
+					someText.message = 'behold the majesty of your page title';
+					someText.money = 12;
+					$scope.someText = someText;
+				}
+			);
+
+  		</script>
+	</head>
+	<body ng-controller="ExampleController">
+		<div>
+			<p>{{someText.message | titleCase}}</p>
+			<p>{{someText.money | currency}}</p>
+		</div>
+	</body>
+</html>

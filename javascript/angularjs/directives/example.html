@@ -1,0 +1,32 @@
+<html ng-app="exampleApp">
+	<head>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.16/angular.min.js"></script>
+		<script type="text/javascript">
+			var exampleAppModule = angular.module('exampleApp', []);
+			
+			exampleAppModule.directive('example', function() {
+			  return {
+				restrict: 'AE',
+				replace: true,
+				template: '<p style="background-color:{{color}}">Example',
+				link: function(scope, elem, attrs) {
+				  console.log(scope);
+				  elem.bind('click', function() {
+					elem.css('background-color', 'green');
+					scope.$apply(function() {
+					  scope.color = "green";
+					});
+				  });
+				  elem.bind('mouseover', function() {
+					elem.css('cursor', 'pointer');
+				  });
+				}
+			  };
+			});
+
+  		</script>
+	</head>
+	<body>
+		<div><example /></div>
+	</body>
+</html>

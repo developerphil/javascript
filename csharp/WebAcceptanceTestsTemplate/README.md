@@ -1,0 +1,1 @@
+# Web Acceptance Tests Template
