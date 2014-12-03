@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link href="main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<div id="container">
+	<div id="inner-container">
+		<div id="events">
+			<h2>Events</h2>
+			<select name="sometext" size="30">
+			</select>
+		</div>
+		<div id="containerOne">
+			<h2>Component One</h2>
+			<select name="sometext" size="30">
+			</select>
+		</div>
+		<div id="containerTwo">
+			<h2>Component Two</h2>
+			<select name="sometext" size="30">
+			</select>
+		</div>
+		<div id="containerThree">
+			<h2>Component Three</h2>
+			<select name="sometext" size="30">
+			</select>
+		</div>
+	</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script type="text/javascript" src="core.js"></script>
+	<script type="text/javascript" src="polling.js"></script>
+	<script type="text/javascript" src="componentOne.js"></script>
+	<script type="text/javascript" src="componentTwo.js"></script>
+	<script type="text/javascript">
+		MYAPP.Core.registerComponent('containerOne', 'ComponentOne');
+		MYAPP.Core.registerComponent('containerTwo', 'ComponentOne');
+		MYAPP.Core.registerComponent('containerThree', 'ComponentTwo');
+		MYAPP.Core.startAllComponents();
+		MYAPP.Polling.initialise();
+	</script>
+</body>
+</html>
