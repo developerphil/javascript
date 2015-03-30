@@ -1,0 +1,380 @@
+Angular - MV* opinionated software
+
+Online Editor - http://plnkr.co
+
+RESOURCES - 
+
+http://builtwith.angularjs.org
+https://github.com/joeeames/AngularFundamentalsFiles
+
+
+
+DIRECTIVES - ng-...
+
+Manipulate DOM, Receive View Events
+
+ng-app - e.g. <body ng-app="myApplication"></body> makes section of dom angular
+
+ng-model - <input>, <select>, <textarea>
+
+e.g. <input type="search" placeholder="Username to find" ng-model="username" />
+			
+
+ng-click - e.g. <input type="submit" value="search" ng-click="search(username)" />
+					$scope.search = function(username) { ... }; in controller
+ng-submit - e.g. ng-submit="search(username)" <input type="search" required placeholder="Username to find" ng-model="username" />
+			in browser validation called
+ng-show/ng-hide - e.g. <div ng-show="user"> //if truthy
+			
+ng-repeat - repeat an array e.g. <tr ng-repeat="repo in repos">
+ng-include - like partials in asp.net mvc e.g. <div ng-include="'userdetals.html'"></div>
+
+ng-cloak - wait for angular to load
+
+ng-src - stop 404 for data bind <img ng-src={{image.src}}>
+
+Think declaratively - e.g directives <my-directive> <my-sub-directive /> </my-directive>
+
+Domain Specific language - Make html fit your domain e.g. <myNav></myNav>
+
+Directive Naming - Careful use unique prefix
+
+Valid Html - use data prefix e.g. data-my-directive or class e.g. class="my-directive"
+
+link, controllers - function to add events.
+
+IE Restrictions - polyfill JSON.stringify and use valid html <div ngpluralize> not <ngpluralize></ngpluralize>
+
+Validation - <input required  ng-pattern="/\d\d/\d\d/\d\d\d\d/" />
+			if(newForm.$valid) $dirty, $pristine
+			css classes added to input to label state
+			
+Custom directives - directives using parent directives - isolated scope
+	app.directive('myExample', function($compile){
+		return{
+			restrict: 'E', // 'A' attribute, 'C' class, 'M' (comment)
+			template: "<input type='text' ng-model='data' /> {{data}}"
+			// or templateUrl: 'example.html'
+			// or link: function(scope, element, attrs, controller){
+			//	var markup = "<input type='text' ng-model='data' /> {{data}}";
+			//	angular.element(element).html($compile(markup)(scope));
+			//}
+			// attrs.$observe('email', function(newValue, oldValue) { $attr.set('src', ... ) }) observe a attribute
+			replace: true //replace instead of append
+			scope: {
+				//example="=example" or example="=" pass object scope in property
+				//exampleMethod="&" method
+				//exampleString="@" evaluate first
+			}
+			controller: function($scope) {
+				$scope.example = function(){
+				
+				}
+			}  //adding methods to a directive or 'exampleController' defined somewhere else
+			//name: 'ctrl' controller defined on the directive
+			//controller: '@'
+			require: 'anotherDirective' //use a directive controller - ^ nested directives (caret)
+			//e.g. link: function(scope, element, attr, controller) { controller.method() }
+			priority: 1 //order of directive to fire
+			terminal: true //stop lower priority order functions executing
+			compile: function(element, attributes){ } //manipulate the DOM before the link function executes can return a link function to execute for each element
+			transclude: true //html within a html <example><div>Stuff</div></example> in example directive you will need to have a element with - ngtransclude to place on a element to know where the inner html to go
+		}
+	})
+
+VIEWS - 
+
+Binding expressions - Double curly brackets {{ 841 / 41 }}
+					
+CONTROLLER - 
+
+ng-controller - e.g. <div ng-controller="MainCtrl">{{message}}</div>
+
+					  var MainCtrl = function($scope) { $scope.message = "Hello;" }
+					  
+
+
+
+
+SERVICES
+
+$scope - Add objects to the view model
+
+$http - request data from external e.g. app.controller('MainCtrl' ,function($scope, $http) { 
+				$http.get("/user/123").then(function(response){
+					$scope.message = response.data;
+				}, onErrorFunction);
+			 }
+
+$resource - rest based architecture to get data e.g. $resource('data/user/:id', {id: '@id'}).get({id:1}) has promise property
+			also save method, query (returns array), remove/delete, custom actions
+			 
+$q - promise library e.g. return promise for service .then(function(){...}, function() {...}).
+
+$anchorScroll - scroll to a element with a id #urlid
+
+$cacheFactory - key value pair .get(key) .put(key, value) .info()
+
+$compile - compile markup produce a function to pass a scope
+
+$parse - to evalute a expression e.g. fn = $parse('1 + 2  event.name'); fn({name: 'name'}); pass a context or two context or a default. 
+
+$locale - localisation of datetime, numeric include locaisation js file one for each locale using a filter {{myDate | date:myFormat}}
+
+$timeout - timeout in a angular world - model changes
+
+$exceptionHandler - overide return a function with one parameter
+
+$filter - access to filters you created or angular filters or you can inject filter you want e.g. durationFilter
+
+$cookieStore - working with cookies
+
+$log - wrapper for logging .log .info .warn .error to console
+
+$rootscope - global scope avoid best practice
+			 
+Ways to create services value, constant, factory, service, provider, filter
+
+
+
+MODULES - 
+
+var app = angular.module("myApplication", []); //name and dependencies array
+app.controller("MainCtrl", ["$scope", $http, MainCtrl]); //array with parameters for minification
+
+Way to communicate between components.
+
+
+
+FILTERS - 
+
+These can be placed in Binding expressions and directives
+expression | filterName:parameter e.g. json, limitTo, lowercase, orderBy etc.
+pipe character e.g. {{ amount | number }} 
+
+<select ng-model="query">
+	<option value="">All</option>
+	<option value="introductory">Intro</option>
+</select>
+e.g. ng-repeat="session in event.session | orderBy:sortorder | limitTo:2 | filter:query"
+
+Custom filters
+	module.filter("name", function(){
+		return function(input /*, filter parameters */){
+			//modify input
+			
+			return modifiedOutput;
+		}
+	});
+
+SERVICES -
+
+$scope, $log, $http - components that can be utilised in a controller
+custom services - register - module.factory("exampleservice", example);
+	var example = function(){
+		var method = function(){
+			return "result";
+		};
+		
+		return {
+			method:method
+		};
+	};
+
+
+$resource service - add js file add to module ngresource
+	restful - all on the same endpoint
+	
+	e.g. app.factory('users', function($resource) {
+		return $resource('/data/users/:id', {id:"@id"});
+	});
+	usage
+	
+	users.query().$promise.then(function(collection){})
+	
+	users.$save()
+	
+	
+$restangular - third party replacement $resource service - depends on underscore and lodash
+	Restangular.All('users');
+	
+$http service
+	$http.get('/route/');
+	$http.post('/route/', list);
+	http configuration - global aswell on individual request
+	Transform - built in transform in the pipeline so make sure you add yours in the correct place - single requests
+	Interceptors - every request
+	
+$q service
+	promise service
+	
+	var dfd = $q.defer();
+	$http.get('route').success(function(data){dfd.resolve(data);})
+	return dfd.promise;
+	
+$routeservice - single page app - make sure the server if setup return single page
+	$location - to change route in code, there are a number of properties on the $location service e.g. hash, url ..., replace() to stop adding to the browser history 
+	$locationProvider - html5Mode(true) - remove # from url - will revert back to # for older browsers
+	
+	var app = angular.module("exampleModule", ["ngRoute"]);
+
+	app.config(function($routeProvider){
+		$routeProvider.when("/example", {
+			templateUrl:"example.html",
+			// or template: '<h3>{{foo}}</h3>' or use service to create template
+			controller:"ExampleController",
+			//routing service wait for the page to get external data before showing the page
+			resolve: {
+				event: function($route, eventData){
+					return eventData.getEvent($route.current.pathParams.Id).$promise;
+				}
+			}
+		})
+		.when("/example/:id", {
+			templateUrl:"example1.html",
+			controller:"ExampleController",
+			foo: 'bar'
+		})
+		.otherwise({redirectTo:"/example"});
+	});
+	
+	SrouteParams service -  to get data from url
+	
+	$route service - get additional properties $route.current.foo and query string parameter $route.current.params, reload to reload a page no refresh
+	
+$SCOPE - scope belong to elements e.g. <div>
+	Batarang - Good for debugging scope
+
+	Sharing Scope - Default
+	Inherited Scope - on directive implementation e.g. scope: true, objects that are already created shared, 
+					  new properties for object properties that are not in the parent scope.
+	Isolated Scope - on directive implementation e.g. scope: {} you can inherit properties e.g. scope: { prop: '='}
+	
+MINIFICATION - ngmin - node module to make angular minification safe. Although problem with if the controller function is not inline.
+
+Events - $rootscope event model.
+Caching - Out of the box angular needs more code - dont forget this!!
+
+MODELS
+
+Useful Patterns
+
+app.factory('catalog', function($resource) {
+	var catalog = $resource('/data/course/:id');
+
+	catalog.prototype.register = function(){
+		this.registered = true;
+		this.save();
+	}
+	
+	return catalog;
+}
+
+
+app.factory('catalog', function($http) {
+	return {
+		list:[],
+		fetch: function(){
+			var that = this;
+			return $http.get('data/follow').success(function(data){
+				that.list = data;
+			});
+		},
+		save: function(){
+			$http.post('data/follow', this.list);
+		}
+		follow: function(name){
+			this.list.push(name);
+			this.save();
+		}
+	}
+}
+
+Testing Angular - Karma - Test Runner
+
+
+
+
+Angular 1.3 - Performance, new features, Productivity - No Support for IE8, no support for jquery < 2.1.1
+
+Code Constructs and Performance
+
+One time binding - bind once {{::class.className}} also in a directive update will only change data in that view e.g. <change name"::class.classname"></change> 
+Turn off debug - less html
+Aria Module - Accessibility
+Stop for global functions for controller but you can turn it back on if needed.
+forEach method iterate over an object
+ng-strict-DI - breaks if annotations are not complete for minification place on body tag
+
+Forms and Input Elements
+
+Date-Based Input Types <input type="date"  ng-model="model.date" /> alos time, datetime-local, month, week. Javascript date format new Date(model.date). zero UTC
+
+form or control level
+ng-model-options="{updateOn: 'blur'}" - validation on blur and model update
+ng-model-options="{debounce: 1500}" - validation on wait and model update
+use ng-submit - to make sure all changes are complete e.g. debounce
+
+cancelEntry - control-$rollbackViewValue() or foem level. - only when model options
+
+Submission Detection - ng-if="classFrom.$submitted" - new state
+Binding to Getter/Setter - ng-model-options="{getterSetter:true}" ng-model="model-gettersetterfunction"
+
+Form Validation
+
+HTML5 Validator Improvements -  HTML5 new types validation
+
+Displaying Validation Message - add ngMessages module
+
+no need to fully qualify each error message, plus order and display one or all 
+e.g. <span ng-if="form.inputEmail-$dirty" ng-messages="form.inputEMail.$error">
+		<span ng=message="required">Email is require</span>
+	 </span>
+	 
+	 ng-messages-multiple - show all
+	 
+Reusing Validation Messages - ng-messages-include="message.html" e.g. <span ng-messages="required">Required</span> - you can still override message
+
+Touch Detection - Detect touch $touched, $untouched ng-class="{'has-error':form.input.$touched}"
+
+Dynamic Element Binding - 
+	controller
+	vm.fields = [{label:"field 1", data:"test 1"}]   
+	view
+	<div ng-repeat="field in vm.field"> <input id="custom{{$index}}" name="custom{{$index}}" /> 
+	ng-class"{'has-error':classForm['custom' + $index].$invalid && ...
+	
+Custom Validation - ngModel.$validators.dateRangeValidator = function(modelValue) { return true:false }
+
+Asynchronous Validation - ngModel.$asyncValidators.method = function (modelValue) { var defer = $q.defer(); .... return defer.promise; } 
+$pending state - waiting for validation - make sure onblur or debounce stop lots of requests
+
+Controllers And Routing
+
+<base> - needed html5 mode routing
+updateparams on routing service to update url
+$watchGroup - watch multiple values pass array of values - watch out for old values.
+$caseInsensitiveMatch - routeprovider in config
+
+Service And Filters
+
+$templateRequest Service - cache templates
+$anchorScroll Service - anchor the page 
+$q new interface - $q(...) instead of var dfd = $q.defer();
+Trailing Slash Removal can now be - configured $resurceProvider.default.stripTrailingSlashes = false;
+
+Directives
+
+Default Restrict - Changed to AE from A
+bindToController - true {{class.className}} {{ctrl.class.className}} scope automatic to controllerAs 
+Deregistration of $observe stop observing value
+ngInclude Events - onerror, requested, loaded - $scope.$on('$includeContentRequested'), function(e, template){});
+
+
+ 
+
+
+
+
+
+
