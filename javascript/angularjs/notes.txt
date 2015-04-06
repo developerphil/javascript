@@ -1,15 +1,14 @@
-Angular - MV* opinionated software
+#Angular - 
+
+MV* opinionated software
+
+###RESOURCES - 
 
 Online Editor - http://plnkr.co
-
-RESOURCES - 
-
 http://builtwith.angularjs.org
 https://github.com/joeeames/AngularFundamentalsFiles
 
-
-
-DIRECTIVES - ng-...
+###DIRECTIVES - ng-...
 
 Manipulate DOM, Receive View Events
 
@@ -82,21 +81,28 @@ Custom directives - directives using parent directives - isolated scope
 		}
 	})
 
-VIEWS - 
+###VIEWS - 
 
 Binding expressions - Double curly brackets {{ 841 / 41 }}
 					
-CONTROLLER - 
+###CONTROLLER - 
 
 ng-controller - e.g. <div ng-controller="MainCtrl">{{message}}</div>
 
 					  var MainCtrl = function($scope) { $scope.message = "Hello;" }
 					  
 
+nesting scopes - dot notation  - customer.title
 
+controller as syntax - 
 
+ng-controller="Customer as customer"
+	{{customer.name}}
 
-SERVICES
+inside controller = var vm = this; vm.name = "abc";
+you can still inject $scope for a watch if needed.
+
+###SERVICES
 
 $scope - Add objects to the view model
 
@@ -136,17 +142,14 @@ $rootscope - global scope avoid best practice
 Ways to create services value, constant, factory, service, provider, filter
 
 
-
-MODULES - 
+###MODULES - 
 
 var app = angular.module("myApplication", []); //name and dependencies array
 app.controller("MainCtrl", ["$scope", $http, MainCtrl]); //array with parameters for minification
 
 Way to communicate between components.
 
-
-
-FILTERS - 
+###FILTERS - 
 
 These can be placed in Binding expressions and directives
 expression | filterName:parameter e.g. json, limitTo, lowercase, orderBy etc.
@@ -167,7 +170,7 @@ Custom filters
 		}
 	});
 
-SERVICES -
+###SERVICES -
 
 $scope, $log, $http - components that can be utilised in a controller
 custom services - register - module.factory("exampleservice", example);
@@ -223,6 +226,7 @@ $routeservice - single page app - make sure the server if setup return single pa
 			templateUrl:"example.html",
 			// or template: '<h3>{{foo}}</h3>' or use service to create template
 			controller:"ExampleController",
+			//controllerAs: 'vm',
 			//routing service wait for the page to get external data before showing the page
 			resolve: {
 				event: function($route, eventData){
@@ -242,6 +246,8 @@ $routeservice - single page app - make sure the server if setup return single pa
 	
 	$route service - get additional properties $route.current.foo and query string parameter $route.current.params, reload to reload a page no refresh
 	
+	//config - resolveAlways - ready function
+	
 $SCOPE - scope belong to elements e.g. <div>
 	Batarang - Good for debugging scope
 
@@ -250,14 +256,14 @@ $SCOPE - scope belong to elements e.g. <div>
 					  new properties for object properties that are not in the parent scope.
 	Isolated Scope - on directive implementation e.g. scope: {} you can inherit properties e.g. scope: { prop: '='}
 	
-MINIFICATION - ngmin - node module to make angular minification safe. Although problem with if the controller function is not inline.
+###MINIFICATION - ngmin - node module to make angular minification safe. Although problem with if the controller function is not inline.
 
 Events - $rootscope event model.
 Caching - Out of the box angular needs more code - dont forget this!!
 
-MODELS
+###MODELS
 
-Useful Patterns
+####Useful Patterns
 
 app.factory('catalog', function($resource) {
 	var catalog = $resource('/data/course/:id');
@@ -290,15 +296,32 @@ app.factory('catalog', function($http) {
 	}
 }
 
-Testing Angular - Karma - Test Runner
+###Testing Angular - Karma - Test Runner
 
 $httpbackend - mock async changes
 End to End Testing -  replace selenium
 js2html - external templates for karma
 
-Angular 1.3 - Performance, new features, Productivity - No Support for IE8, no support for jquery < 2.1.1
+'controller as' testing - 
+	describe('Example', function(){
+		var scope;
 
-Code Constructs and Performance
+		beforeEach(function() {
+			scope = $rootscope.$new();
+			controller = $controller('Example as vm', {
+				'$scope': scope
+			});
+		});
+		
+		it('should ...', function() {
+			$rootScope.$apply();
+			expect(scope.vm.title).to.equal('title');
+		});
+	});
+
+###Angular 1.3 - Performance, new features, Productivity - No Support for IE8, no support for jquery < 2.1.1
+
+####Code Constructs and Performance
 
 One time binding - bind once {{::class.className}} also in a directive update will only change data in that view e.g. <change name"::class.classname"></change> 
 Turn off debug - less html
@@ -307,7 +330,7 @@ Stop for global functions for controller but you can turn it back on if needed.
 forEach method iterate over an object
 ng-strict-DI - breaks if annotations are not complete for minification place on body tag
 
-Forms and Input Elements
+####Forms and Input Elements
 
 Date-Based Input Types <input type="date"  ng-model="model.date" /> alos time, datetime-local, month, week. Javascript date format new Date(model.date). zero UTC
 
@@ -321,9 +344,8 @@ cancelEntry - control-$rollbackViewValue() or foem level. - only when model opti
 Submission Detection - ng-if="classFrom.$submitted" - new state
 Binding to Getter/Setter - ng-model-options="{getterSetter:true}" ng-model="model-gettersetterfunction"
 
-Form Validation
 
-HTML5 Validator Improvements -  HTML5 new types validation
+####Form Validation HTML5 Validator Improvements -  HTML5 new types validation
 
 Displaying Validation Message - add ngMessages module
 
@@ -345,31 +367,146 @@ Dynamic Element Binding -
 	<div ng-repeat="field in vm.field"> <input id="custom{{$index}}" name="custom{{$index}}" /> 
 	ng-class"{'has-error':classForm['custom' + $index].$invalid && ...
 	
-Custom Validation - ngModel.$validators.dateRangeValidator = function(modelValue) { return true:false }
+#####Custom Validation - ngModel.$validators.dateRangeValidator = function(modelValue) { return true:false }
 
 Asynchronous Validation - ngModel.$asyncValidators.method = function (modelValue) { var defer = $q.defer(); .... return defer.promise; } 
 $pending state - waiting for validation - make sure onblur or debounce stop lots of requests
 
-Controllers And Routing
+#####Controllers And Routing
 
 <base> - needed html5 mode routing
 updateparams on routing service to update url
 $watchGroup - watch multiple values pass array of values - watch out for old values.
 $caseInsensitiveMatch - routeprovider in config
 
-Service And Filters
+#####Service And Filters
 
 $templateRequest Service - cache templates
 $anchorScroll Service - anchor the page 
 $q new interface - $q(...) instead of var dfd = $q.defer();
 Trailing Slash Removal can now be - configured $resurceProvider.default.stripTrailingSlashes = false;
 
-Directives
+#####Directives
 
 Default Restrict - Changed to AE from A
 bindToController - true {{class.className}} {{ctrl.class.className}} scope automatic to controllerAs 
 Deregistration of $observe stop observing value
 ngInclude Events - onerror, requested, loaded - $scope.$on('$includeContentRequested'), function(e, template){});
+
+###Cleaner Code
+
+####Separate Concerns - Run of 1
+
+Modules - use modules e.g. common, widgets, dataservice
+DataService
+Logging
+Exception Handling
+Features And Roles
+Generic
+
+####Organising your App - LIFT Principle - Locate Code, Identify Code, Flat Structure, Try stay DRY
+
+folder structure e.g. app, content, scripts, test
+by type or by feature - feature then by type bigger applications e.g. layout, people, services, dashboard, common, core
+Above the folder principle - identify the most important things.
+Naming Conventions - be consistent, directive prefix e.g msm, Casing.
+Templates - http://jpapa.me/ngstormtmpl, http://sidewaffle.com
+
+####Modules - Containers e.g. services, directives, dashboards, 3rd party, or more all together
+
+Dependencies, inject functionality, careful of dependencies chains.
+app - features e.g. layout,dashboard - core, widgets - third party, generic, angularjs
+
+Structure - https://github.com/johnpapa/ng-demos/tree/master/modular/src/client/app
+App Main - Dependencies on core and features
+App Core - Third Party dependencies and generic dependences
+App Features - No Dependencies becuase they are setup in app main 
+Naming - app - app.sales, app.admin ... files names app.sales.js
+
+####Readable code
+
+#####Controller
+
+(function() {
+	'use strict';
+	
+	angular
+		.module('app')
+		.controller('ExampleController', ExampleController);
+		
+	ExampleController.$inject = ['$location', 'common'];
+	
+	function ExampleController($location, common){
+		var vm = this;
+	
+		vm.example = "abc";
+		vm.another = 
+		....
+	};
+})();
+
+#####Service
+
+(function() {
+	'use strict';
+	
+	angular
+		.module('app.data')
+		.factory('exampleService', exampleService);
+		
+	exampleService.$inject = ['$location', '$scope'];
+	
+	function ExampleController($location, $scope){
+		
+		var service = {
+			methodOne: methodOne,
+			methodTwo: methodTwo
+		}
+		
+		return service;
+	};
+})();
+
+####Task Automation
+
+grunt - configuration over code - file based
+Gulp - code over configuration - stream based
+Templating, Minification, Linting, Run tests, ngAnnotate (commment to inject dependencies), 
+watching files to run jshint continuously e.g.
+
+gulp.task('watch', function(){
+	return gulp
+		.watch(files, ['hint'])
+		.on('change', function(event)){
+			console.log('*** File ' + event.path + ' was ' + event.type + ', running tasks...');
+		});
+});
+
+###Exception Handling
+
+https://github.com/johnpapa/ng-demos/tree/master/modular/src/client/app/blocks/exception
+
+Handle Angular errors better to the user.
+
+####Application errors
+
+extend angular service $provide.decorator('$exceptionHandler', extendExceptionHandler);
+
+####Routing errors
+
+create own service - angular.module('router').provider('routehelperConfig', routehelperConfig).factory('routehelper', routehelper)
+
+####Custom exceptions
+
+Generic Catch - service - exception.js
+
+###Style Guide
+
+https://github.com/johnpapa/angularjs-styleguide
+
+
+
+
 
 
  
