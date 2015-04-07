@@ -1,6 +1,6 @@
 #Angular - 
 
-MV* opinionated software
+MV* opinionated software, two way binding, testable, declarative
 
 ###RESOURCES - 
 
@@ -412,6 +412,16 @@ Above the folder principle - identify the most important things.
 Naming Conventions - be consistent, directive prefix e.g msm, Casing.
 Templates - http://jpapa.me/ngstormtmpl, http://sidewaffle.com
 
+good option
+
+schedule
+	sc-quick-schedule.js
+	sc-quick-schedule.html
+	scRatingFiler.js
+	scSchedule.js
+	scScheduleCtrl.js
+	scSchedule.html
+
 ####Modules - Containers e.g. services, directives, dashboards, 3rd party, or more all together
 
 Dependencies, inject functionality, careful of dependencies chains.
@@ -422,6 +432,7 @@ App Main - Dependencies on core and features
 App Core - Third Party dependencies and generic dependences
 App Features - No Dependencies becuase they are setup in app main 
 Naming - app - app.sales, app.admin ... files names app.sales.js
+Naming conflicts naming objects in different modules e.g instructor schedule controller - inScheduleCtrl
 
 ####Readable code
 
@@ -503,6 +514,29 @@ Generic Catch - service - exception.js
 ###Style Guide
 
 https://github.com/johnpapa/angularjs-styleguide
+
+Angular JS and ASP.NET MVC
+
+Bootstrapping Data to get data in scope
+
+ng-init="courses = @Html.Raw(JsonModel)" - Watch out for casing with json.net
+or
+dynamic generate Javascript with a service that contains the data
+	return {
+		courses: @Html.Raw(JsonModel),
+		instructors: @Html.Raw(JsonModel)
+	}
+	
+ng-view - 
+
+use $routeProvider and partials (templates) 
+e.g. $routeProvider.when('/reg/courses', { templatesUrl: '/templates/courses.html', controller: 'CoursesController'});
+don't forgot remove hash code - $locationProvider.html5Mode(true);
+
+deeplinking e.g. example/examplepage - create catchall e.g. url: "example/{*catchall}" or more specific if you want 404
+
+
+
 
 
 
