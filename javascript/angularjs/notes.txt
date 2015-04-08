@@ -26,6 +26,8 @@ ng-submit - e.g. ng-submit="search(username)" <input type="search" required plac
 ng-show/ng-hide - e.g. <div ng-show="user"> //if truthy
 			
 ng-repeat - repeat an array e.g. <tr ng-repeat="repo in repos">
+			binding must be a object because of duplicate strings don't bind
+
 ng-include - like partials in asp.net mvc e.g. <div ng-include="'userdetals.html'"></div>
 
 ng-cloak - wait for angular to load
@@ -534,6 +536,10 @@ e.g. $routeProvider.when('/reg/courses', { templatesUrl: '/templates/courses.htm
 don't forgot remove hash code - $locationProvider.html5Mode(true);
 
 deeplinking e.g. example/examplepage - create catchall e.g. url: "example/{*catchall}" or more specific if you want 404
+
+Validation - Example1 in Validation for example in dot using model state make sure you do both
+
+SignalR - Service for SignalR wrapper, digest cycle .apply to update bindings - see signalr folder for code
 
 
 
