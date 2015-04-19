@@ -1,0 +1,77 @@
+#Testing Javascript
+
+Resources
+
+www.testdrivenjs.com
+www.javascriptjabber.com
+https://gist.github.com/1755675 - Qunit/Team city CI
+
+##QUnit - unit
+
+ok - truthful
+equal - value compare
+notEqual
+deepEqual - arrays and class and
+notDeepEqual
+strictEqual - use this === type aswell (use strictEqual)  
+notStrictEqual
+raises - exception testing	
+
+Think about organising your code
+
+Modules are TestFixture (nunit)
+	-logical grouping
+	
+Composite addin - combine test files e.g. test1.html, test2.html
+Resharper - run through PhantomJS
+
+DOM use to qunit-fixture div which reset before every test and think about selectors
+
+CI - PhantomJS (only chrome JavaScript engine), third party for cross browser testing best option in CI
+
+Waiting for UI use asyncTest think about passing callback instead of setTimeout
+
+noglobal option on test runner - test for global variables
+notrycatch - test of unhandled exceptions
+expect assert - in test definition only for good for ajax test
+events - log, testStart, testDone, moduleStart, moduleDone, begin, end for adding comments to CI
+
+##Jasmine - BDD style
+
+specs = tests
+swap test (last) and source files (first) in specRunner.html and moves reporter to another file
+
+describe() use describe within describe for more descriptive and documentation creation
+beforeEach, afterEach - before and after it()
+it() - a test
+matchers - expect(true)... assertions toEqual, toBe, toMatch, toBeDefined, toBeUndefined, toBeNull, toBeTruthy ...
+custom matchers - see javascript\testing\jasmine\WritingTests
+
+xit or xdescribe to ignore tests
+
+testing the DOM - same as qunit expect add beforeEach and afterEach create a template in js (see javascript\testing\jasmine\DOMTesting)
+
+CI - PhantomJS, run-jasmine.js and reporter e.g. jasmine.teamcity_reporter.js add to specRunner.html
+
+Asynchronous Testing - e.g. setTimeout, setInterval, UI effects, ajax calls
+	runs() and waitsFor() and use callback (see javascript\testing\jasmine\AsyncTests)
+	Clock.useMock() only for setTimeout and setInterval speed up tests (see javascript\testing\jasmine\AsyncTests) overrides setTimeout and setInterval
+	jasmine.async - addon - https://github.com/derickbailey/jasmine.async (see javascript\testing\jasmine\AsyncTests)
+	
+##Mocha - BDD and TDD - versatile - developed for node, flexible
+
+- assertion choose your own e.g. chai.js, expect.js, should.js, assert.js
+- note the style in the testrunner file mocha.setup('bdd'); or qunit,tdd style (see javascript\testing\mocha\bdd-style)
+- bdd style .skip to ignore test or x, pending e.g. it('test') without implementation
+- global variable leak checking automatically ignore valid e.g. mocha.setup({global: ['variable']})
+- slow test detection
+- asynchronous tests built in, timeout increase mocha.setup(timeout:3000) or test by test base thie.timeout(3000);
+
+CI - run-mocha.js for PhantomJS plus reporter needed.
+
+##Mocking
+
+
+
+
+

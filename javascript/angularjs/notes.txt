@@ -249,6 +249,9 @@ $routeservice - single page app - make sure the server if setup return single pa
 	$route service - get additional properties $route.current.foo and query string parameter $route.current.params, reload to reload a page no refresh
 	
 	//config - resolveAlways - ready function
+	wrap third party libraries as a service - e.g. app.value('toastr', toastr);
+	
+	state object - app.value('identity', {});
 	
 $SCOPE - scope belong to elements e.g. <div>
 	Batarang - Good for debugging scope
@@ -258,7 +261,9 @@ $SCOPE - scope belong to elements e.g. <div>
 					  new properties for object properties that are not in the parent scope.
 	Isolated Scope - on directive implementation e.g. scope: {} you can inherit properties e.g. scope: { prop: '='}
 	
-###MINIFICATION - ngmin - node module to make angular minification safe. Although problem with if the controller function is not inline.
+###MINIFICATION - ngmin - node module to make angular minification safe. 
+							Although problem with if the controller function is not inline.
+							use this pattern - angular.module('app').controller....
 
 Events - $rootscope event model.
 Caching - Out of the box angular needs more code - dont forget this!!
@@ -320,7 +325,13 @@ js2html - external templates for karma
 			expect(scope.vm.title).to.equal('title');
 		});
 	});
+	
+jasmine, sinon, angular-mocks
 
+jasmine - matches custom matches e.g. isReasonableExpense add custom matcher. see angularjs\testing\ExampleTwo\spec\SpecHelper.js
+		- sub describes more detailed clean code
+		- spies mocking - expect a call or mock a return see angularjs\testing\ExampleTwo\spec\persistingExpensesSpec.js
+		
 ###Angular 1.3 - Performance, new features, Productivity - No Support for IE8, no support for jquery < 2.1.1
 
 ####Code Constructs and Performance
@@ -540,6 +551,45 @@ deeplinking e.g. example/examplepage - create catchall e.g. url: "example/{*catc
 Validation - Example1 in Validation for example in dot using model state make sure you do both
 
 SignalR - Service for SignalR wrapper, digest cycle .apply to update bindings - see signalr folder for code
+
+Legacy .Net (Web Forms) - Deliver angular to the pages you need it on. (sections, user controls, ngapp to the bit you need it on)
+						- Bootstrapping data - literal data to json string
+						- pageMethods using scriptManager <asp:ScriptManager ID="smMain" runat="server" EnablePageMethods="true" /> webmethod attribute on the server, 
+							callback - outside angular $scope.apply(); or $q service or use $rootscope
+						- add mvc to web forms to a web forms project - Route Table on Application start
+						- add wcf to web forms project -  Wcf Contract Method - [WebGet(ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageStyle.Bare, UriTemplate = "example")], [WebInvoke] for POST or PUT
+						- if using the resource service use a transform response on query to manipulate the response
+						- web service - $http service
+						
+Minification and concat - Grunt see grunt\minandconcat
+						  Bundles - need to minsafe code in visual studio create a hook (build event) in batch file to grunt task
+									
+						- use HttpContext.Current.IsDebuggingEnabled for file delivery debug or release
+						
+Testing - Hook into resharper - feature unit testing - enable Jasmine support and add phantom js to stop browser showing 
+								and add reference paths in test file - /// <reference path="../Angular4DotNet/Scripts/Courses/courses-controller.js"/>
+								
+		- CI use phantom js as a runner - jasmine reporter needed for success or not	
+
+Security - awesomeplaces.troyhunt.com - insecure example
+		 - authentication cookie vs tokens
+			- cookies - one domain, persist when the DOM is unloaded, CSRF risk, auto sent in request
+			- multiple domains, CORS, no persist when DOM is unloaded, no CSRF risk and explicity sent
+		 - protect server endpoint services
+		 - maybe protect template e.g. protect \admin\template.html could be secure information
+		 - only return attributes you need on the front end
+		 - Cross site script - inject javascript into the DOM
+		 - Use other storage mechanism instead of cookie, Http Only, Secure cookie
+		 - CSRF - simple example another website call a resource on your site 
+		 e.g. logout link. Guard against this using XSRF token implemented $http automatically implements 
+		 the adding on the header just need to add this the server side code.
+		 -use ngsanitize module and ng-bind-html to strip out bad stuff e.g. mouseover="script..."
+		 if you need the script because user can't inject code - $sceProvider.enabled(false) in the angular config
+		 - Important don't mix server and client side templates e.g. querystring into the rendered into the page
+		 
+
+	
+
 
 
 

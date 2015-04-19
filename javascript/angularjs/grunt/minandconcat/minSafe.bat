@@ -1,0 +1,2 @@
+grunt build
+echo Minsafed!
