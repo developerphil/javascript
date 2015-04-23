@@ -1,0 +1,11 @@
+﻿@{ ViewBag.Title = "Blog"; }
+@if (Request.IsAuthenticated)
+{
+    <a href="/admin">Admin</a>
+    <br />
+    <a href="/logout">Logout</a>
+}
+else
+{
+    @Html.ActionLink("Login", "Login", "Home", new { area = "" }, null)
+}

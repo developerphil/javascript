@@ -71,7 +71,7 @@ CI - run-mocha.js for PhantomJS plus reporter needed.
 
 ##Mocking
 
-
+Creating your own spy (See javascript\testing\mocking\manualmocking)
 
 
 

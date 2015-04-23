@@ -1,0 +1,59 @@
+#Typescript
+
+Strongly Type
+Refractors
+Build Time Comply
+
+##TypeScript With Angular - Justin Schwartzenberger
+
+TSLint - Simpler to JSLint
+DefinitelyTyped - Reference to third party libraries /// <reference path="jquery/jquery.d.ts">
+
+Style Guide - https://github.com/johnpapa/angular-styleguide
+
+###Setup
+
+app.config.ts - setup angular - locationService html5mode
+app.run.ts - see for error on $cookie.currentUserId; use add interface for cookie service to remove error
+
+###Value Service
+
+app.value.ts - value service example currentUser
+
+###Decorator
+
+blocks/logdecorator.config.ts - extending angular log service notice any type because of two ILogCall one for Test and another for Implementation
+
+###Controllers
+
+layout/navigation.controller.ts - add module, no export because the controller doesn't need to viewed outside
+								- example uses vm as .. not $scope to use this extend interface ng.IScope to INavigationScope
+								- !!!Important controller register after controller class
+								
+sitesettings/sitesettings.controller.ts - another example
+
+###Services
+
+services/user.service.ts - export on interface to use the service, ng.IPromise, type object to return IUser
+						 - see navigation controller to use the service
+						 
+###Factories
+
+services/sitesettings.service.ts - add extra function function factory() to new the implementation
+
+###Providers
+
+blocks/apiendpoint.provider.ts - implement ng.IServiceProvider, apiendpoint.config.ts setup, sitesettings.service.ts usage
+
+### Directives
+
+widgets/slugcheck.directive.ts
+
+###Extra
+
+sitesettings.routes.ts - chaining promises example
+be careful of this - lamabas () => {} and function() this is create different meaning of this keyword parent scope and function scope
+
+
+
+	
