@@ -1,0 +1,5 @@
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD - after.dll
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD - after.pdb
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD - after.dll
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD - after.pdb
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD - after.csprojResolveAssemblyReference.cache

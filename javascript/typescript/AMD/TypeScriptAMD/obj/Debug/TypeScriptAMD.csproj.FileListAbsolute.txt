@@ -1,0 +1,15 @@
+C:\_Dropbox\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.dll
+C:\_Dropbox\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.pdb
+C:\_Dropbox\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.csprojResolveAssemblyReference.cache
+C:\_Dropbox\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.dll
+C:\_Dropbox\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.pdb
+D:\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.dll
+D:\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.pdb
+D:\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.csprojResolveAssemblyReference.cache
+D:\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.dll
+D:\Dropbox\Demos\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.pdb
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.dll
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\bin\TypeScriptAMD.pdb
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.csprojResolveAssemblyReference.cache
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.dll
+D:\Dropbox\Pluralsight\TypeScript\Module4\Produced\Code\After\TypeScriptAMD\TypeScriptAMD\obj\Debug\TypeScriptAMD.pdb

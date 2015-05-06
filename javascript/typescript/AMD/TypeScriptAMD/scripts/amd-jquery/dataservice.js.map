@@ -1,0 +1,1 @@
+{"version":3,"file":"dataservice.js","sources":["dataservice.ts"],"names":["DataService","DataService.constructor","DataService.getMessage"],"mappings":"AAAA;IAGC,EAAC;IAEF;QAAAA;YACIC,KAAAA,GAAGA,GAAGA,sBAAsBA,CAAAA;;AAE/BD,QADGA,mCAAAA;YAAeE,OAAOA,IAAIA,CAACA,GAAGA,CAACA;QAACA,CAACA;QACrCF;AAACA,IAADA,CAACA,IAAA;IAHD,kCAGC,IAAA;;AAAA"}
