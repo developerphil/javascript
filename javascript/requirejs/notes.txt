@@ -1,0 +1,37 @@
+
+require()
+
+starting app
+
+require("start", ["jquery"], function($){
+
+});
+
+define()
+
+define a module
+
+define("", [], function(require, export){
+	var a = require("a");
+	var b = require("b");
+
+	function method() {
+	
+	}
+	
+	export(method);
+	
+})
+
+build - node build\r.js -o 
+			name=main 
+			baseUrl=src/js 
+			mainConfigFile=src/js/main.js 
+			out=src/js/main-optimized.min.js 
+			generateSourceMaps=true 
+			preserveLicenseComments=false 
+			optimize=uglify2
+			
+		or use build profile
+		
+		node build\r.js -o build\buildconfig.js
